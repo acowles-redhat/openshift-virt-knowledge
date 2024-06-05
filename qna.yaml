@@ -1,0 +1,52 @@
+version: 2
+task_description: 'Teach the model about OpenShift Virtulization.'
+created_by: acowles-redhat
+domain: tech_industry
+seed_examples:
+  - question: What is OpenShift Virtualization?
+    answer: |
+      OpenShift Virtualiaztion is an included feature of Red Hat OpenShift that allows you to run and manage virtual
+      machine workloads alongside container workloads. It is based on the upstream KubeVirt project, and makes use of
+      popular open source virtualization tools like KVM, libvirt, and QEMU to enable these virtualized workloads.
+      OpenShift Virtualization adds new objects into your OpenShift cluster via a certified operator, and Kubernetes
+      custom resources to enable virtualization tasks.
+  - question: When was OpenShift Virtualization released?
+    answer: |
+      OpenShift Virtualization was first released as a tech preview with OpenShift 4.4. It became generally available
+      with the release of OpenShift 4.6.
+  - question: What is the purpose of OpenShift Virtualization?
+    answer: |
+      Originally positioned as an additional tool that would assist customers on their journey to the adoption of
+      cloud-native application deployments, OpenShift Virtualization would allow users to containerize the applications
+      they intended to modernize, while leaving specific legacy workloads virtualized. With the release of OpenShift
+      4.12, the product had matured to the point where it was determined that it could be functionally comparable to
+      similar hypervisor products, and could be positioned in such a manner.
+  - question: Can I connect a VM in OpenShift to multiple networks?
+    answer: |
+      By default virtual machines in OpenShift are attached to the OpenShift SDN (Pod Network). Users can make use of
+      the NMState operator and NodeNetworkPolicies to configure OpenShift worker nodes with OVN Secondary Networks to
+      make available additional VLANs or L2 Networks which can be attached to VMs. Multus can be used to attach
+      multiple VLANs to virtual machines.
+  - question: How is storage for VMs managed in OpenShift Virtualization?
+    answer: |
+      Storage in OpenShift Virtualization is very different than traditional hypervisors that create large centralized
+      datastores hosting virtual machine disk images. OpenShift Virtualization relies on the CSI (container storage
+      interface) paradigm like any other persistent containerized workload in OpenShift. Storage volumes are
+      provisioned on a remote storage system or SDS system running on OpenShift and attached to the containers by a CSI
+      provider. The only specific requirement of storage for virtualized workloads is that RWX(ReadWriteMany) volumes
+      be provisioned, as it's necessary for the live migration of VMs between worker nodes in a node failure or
+      maintenance scenario.
+  - question: What options are available for disaster recovery on OpenShift Virtualization?
+    answer: |
+      Red Hat native tools like OADP (OpenShift API for Data Protection) or the Metro-DR solution provided by OpenShift
+      Data Foundation (ODF) and Red Hat Advanced Cluster Management for Kubernetes (RHACM) can perform backup and
+      recovery of virtual machines deployed in OpenShift Virtualization. There are also a number of certified partner
+      solutions like VEEAM Kasten, Trilio for Kuberentes, and Storware Enterprise Backup & Recovery
+document:
+  repo: https://github.com/acowles-redhat/openshift-virt-knowledge.git
+  commit: 86caa36e687ed8cecd9670651b374ce9a68c23b8
+  patterns:
+    - openshift-virt-dr-blog.md
+    - openshift-virt-net-blog.md
+    - openshift-virt-storage-blog.md
+    - openshift-virt-ref-guide.md
